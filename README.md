@@ -13,10 +13,11 @@ calibration, and evaluates them on sci-Plex3 and Norman single-cell screens.
   fixed-width and bootstrap-SE normal intervals under-cover much more.
 - DEG prioritization: flagged top-50 precision improves from 0.657 to 0.670
   (5 seeds) while flagging only 9.6% of genes.
-- A fine-tuned scGPT base predictor restores unseen-perturbation coverage to
-  0.948 ± 0.022 on the same held-out Norman perturbations (delta: 0.910),
-  showing that out-of-distribution under-coverage reflects base-predictor
-  generalization rather than the conformal procedure.
+- Fine-tuned scGPT is seed-sensitive on the same held-out Norman
+  perturbations: coverage 0.838–0.954 across five training seeds (mean
+  0.894 ± 0.040; mean-shift delta: 0.910). A five-seed ensemble improves
+  point accuracy (Pearson 0.487) but not coverage (0.854); conformal
+  intervals expose this instability rather than masking it.
 
 ## Repository layout
 
@@ -62,8 +63,8 @@ python code/make_figures.py             # regenerate all figures
 
 # scGPT base predictor (requires GPU + scGPT weights)
 python code/scgpt_build_norman_union.py
-python code/scgpt_finetune_norman.py
-python code/run_uq_scgpt_s5.py
+bash code/run_scgpt_multiseed.sh        # five 4-epoch seeds + aggregation
+python code/make_figures.py             # regenerate all figures
 ```
 
 Individual experiment scripts (`run_uq_s1.py`, `run_uq_s2.py`, `run_uq_s3.py`,

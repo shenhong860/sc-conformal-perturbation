@@ -2,6 +2,7 @@
 
 import copy
 import json
+import sys
 import time
 import warnings
 from pathlib import Path
@@ -18,13 +19,14 @@ from scgpt.model import TransformerGenerator
 from scgpt.tokenizer.gene_tokenizer import GeneVocab
 from scgpt.utils import map_raw_id_to_vocab_id, set_seed
 
+SEED = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 warnings.filterwarnings("ignore")
-set_seed(42)
+set_seed(SEED)
 
 DATA_DIR = Path("/mnt/d/guo/CW1OT/results/scgpt_norman/data_union")
 SPLITS = Path("/mnt/d/guo/CW1OT/results/scgpt_norman/splits_union.json")
 WEIGHTS = Path("/mnt/d/guo/CW1OT/externals/scgpt_weights")
-SAVE_DIR = Path("/mnt/d/guo/CW1OT/results/scgpt_norman/finetune")
+SAVE_DIR = Path(f"/mnt/d/guo/CW1OT/results/scgpt_norman/finetune_seed{SEED}")
 
 pad_token = "<pad>"
 special_tokens = [pad_token, "<cls>", "<eoc>"]
@@ -44,7 +46,7 @@ load_param_prefixs = ["encoder", "value_encoder", "transformer_encoder"]
 lr = 1e-4
 batch_size = 64
 eval_batch_size = 64
-epochs = 6
+epochs = 4
 schedule_interval = 1
 early_stop = 3
 log_interval = 50
