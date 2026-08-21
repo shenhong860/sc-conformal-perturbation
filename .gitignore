@@ -11,4 +11,5 @@ results/logs/
 *.blg
 *.out
 *.toc
+*.tiff
 UQ_manuscript.pdf
