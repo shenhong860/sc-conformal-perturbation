@@ -642,6 +642,7 @@ def overview():
     table_rows = [
         ["Base predictor", "Coverage", "Median width", "Precision@50"],
         ["delta (mean-shift)", "0.943", "0.029", "0.777"],
+        ["linear (main effects)", "0.951", "0.111", "0.427"],
         ["w1ot (optimal transport)", "0.948", "0.056", "0.717"],
     ]
     tbl = ax_table.table(
@@ -668,10 +669,10 @@ def overview():
             cell.set_facecolor("#FAFBFC")
 
     # Bold the best value in each metric column
-    # Coverage: w1ot 0.948 > delta 0.943 → bold w1ot
-    # Width: delta 0.029 < w1ot 0.056 → bold delta (lower is better)
-    # Prec@50: delta 0.777 > w1ot 0.717 → bold delta
-    best_cells = {(2, 1): True, (1, 2): True, (1, 3): True}  # (row, col)
+    # Coverage: linear 0.951 > w1ot 0.948 > delta 0.943 → bold linear
+    # Width: delta 0.029 < w1ot 0.056 < linear 0.111 → bold delta
+    # Prec@50: delta 0.777 > w1ot 0.717 > linear 0.427 → bold delta
+    best_cells = {(3, 1): True, (1, 2): True, (1, 3): True}  # (row, col)
     for (r, c), is_best in best_cells.items():
         cell = tbl[(r, c)]
         cell.set_text_props(fontweight="bold", color=BLACK)

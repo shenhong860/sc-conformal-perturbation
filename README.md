@@ -59,6 +59,7 @@ Processed data are not committed because of their size. Download:
 # main UQ experiments (WSL/Linux, conda env recommended)
 python code/run_uq_supplement.py        # multi-seed S3/S4 + baselines
 python code/run_uq_s5.py                # Norman replication
+python code/run_uq_ablation.py          # base-predictor ablation (delta/linear/w1ot)
 python code/make_figures.py             # regenerate all figures
 
 # scGPT base predictor (requires GPU + scGPT weights)
@@ -66,6 +67,9 @@ python code/scgpt_build_norman_union.py
 bash code/run_scgpt_multiseed.sh        # five 4-epoch seeds + aggregation
 python code/make_figures.py             # regenerate all figures
 ```
+
+> The ablation script retrains the GPU-based w1ot predictor. Set
+> `SKIP_W1OT=1` to run only the delta and linear baselines.
 
 Individual experiment scripts (`run_uq_s1.py`, `run_uq_s2.py`, `run_uq_s3.py`,
 etc.) reproduce the corresponding results sections.
