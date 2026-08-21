@@ -23,7 +23,6 @@ calibration, and evaluates them on sci-Plex3 and Norman single-cell screens.
 ```text
 code/          analysis and figure scripts
 figures/       publication figures (PNG, SVG, PDF)
-manuscript/    LaTeX source and bibliography
 results/       summary JSON results
 ```
 

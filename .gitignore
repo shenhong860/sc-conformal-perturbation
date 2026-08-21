@@ -4,6 +4,7 @@ __pycache__/
 .vscode/
 data/
 externals/
+manuscript/
 results/logs/
 *.log
 *.aux
