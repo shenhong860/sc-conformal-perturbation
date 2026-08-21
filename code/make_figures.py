@@ -208,13 +208,8 @@ def fig_s3b():
     """Coverage versus calibration fraction."""
     fig, ax = plt.subplots()
     fracs = [25, 10, 5]
-    cov = [0.9486, 0.9335, 0.9275]
-    cell_vals = {
-        25: [0.9485, 0.9497, 0.9474],
-        10: [0.9454, 0.9411, 0.9100],
-        5: [0.9354, 0.9506, 0.8887],
-    }
-    sem = [np.std(cell_vals[fx], ddof=1) / np.sqrt(3) for fx in fracs]
+    cov = [0.9522, 0.9303, 0.9275]
+    sem = [0.0032, 0.0056, 0.0050]
     ax.errorbar(
         fracs, cov, yerr=sem, fmt="none", ecolor=BLACK, elinewidth=0.8,
         capsize=3, capthick=0.8, zorder=2,
@@ -232,7 +227,7 @@ def fig_s3b():
     ax.set_xticklabels(["25", "10", "5"])
     ax.set_xlim(27, 3)
     ax.text(
-        0.02, 0.025, "Error bars: SE across three cell lines",
+        0.02, 0.025, "Mean +/- 95% CI over five seeds",
         transform=ax.transAxes, fontsize=5.5, va="bottom", ha="left",
         color=BLACK,
     )
@@ -420,13 +415,8 @@ def overview():
 
     # d: calibration fraction
     fracs = [25, 10, 5]
-    cov = [0.9486, 0.9335, 0.9275]
-    cell_vals = {
-        25: [0.9485, 0.9497, 0.9474],
-        10: [0.9454, 0.9411, 0.9100],
-        5: [0.9354, 0.9506, 0.8887],
-    }
-    sem_d = [np.std(cell_vals[fx], ddof=1) / np.sqrt(3) for fx in fracs]
+    cov = [0.9522, 0.9303, 0.9275]
+    sem_d = [0.0032, 0.0056, 0.0050]
     d.errorbar(fracs, cov, yerr=sem_d, fmt="none", ecolor=BLACK,
                elinewidth=0.8, capsize=3, capthick=0.8, zorder=2)
     d.plot(fracs, cov, "-o", color=BLUE, lw=1.4, ms=4, zorder=3)
@@ -513,8 +503,8 @@ def overview():
     f.plot([], [], color=GRAY, ls="--", lw=0.9, label="Nominal 0.95")
     f.legend(loc="lower right", fontsize=6)
     fig.text(
-        0.055, 0.845, "Conformal intervals are calibrated in-distribution "
-        "but under-cover for unseen perturbations and small calibration sets",
+        0.055, 0.975, "Coverage is calibrated in-distribution and "
+        "predictor-dependent for unseen perturbations",
         fontsize=7, va="top", ha="left", color=BLACK,
     )
 
