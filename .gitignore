@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/
+data/
+externals/
+results/logs/
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+UQ_manuscript.pdf
