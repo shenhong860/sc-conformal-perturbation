@@ -33,11 +33,7 @@ def fig_baselines():
         ax.set_xticks(np.arange(4))
         ax.set_xticklabels(methods, fontsize=5.5)
         ax.set_ylabel("Coverage")
-        ax.set_title(title, loc="left", fontsize=6.5, color=GRAY, pad=4)
-
-    # Subtitle placed BELOW the panel as a figure-level caption (outside bars)
-    fig.text(0.5, 0.01, "sci-Plex3 held-out conditions (5 seeds)",
-             ha="center", va="bottom", fontsize=5, color=GRAY, style="italic")
+        ax.set_title(title, loc="left", fontsize=6.5, color=BLACK, pad=4)
 
     panel_label(axes[0], "A", x=-0.08, y=1.05)
     panel_label(axes[1], "B", x=-0.08, y=1.05)

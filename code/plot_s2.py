@@ -39,8 +39,8 @@ def fig_s2():
     # Compact footnote
     ax.text(0.02, 0.02,
             "Error bars: naive SE / calibrated 95% CI (5 seeds)",
-            transform=ax.transAxes, fontsize=5, va="bottom", ha="left",
-            color=GRAY, style="italic")
+            transform=ax.transAxes, fontsize=5.5, va="bottom", ha="left",
+            color=BLACK, style="italic")
 
     finalize(fig, "fig_s2", (88, 60))
 

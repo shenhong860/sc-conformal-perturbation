@@ -41,7 +41,7 @@ def fig_scgpt():
     ax.errorbar(0, delta_mean, yerr=delta_ci, fmt="none", ecolor=BLACK,
                 elinewidth=0.7, capsize=2.5, capthick=0.7, zorder=4)
     ax.text(0, delta_mean + delta_ci + 0.006, f"{delta_mean:.3f}",
-            ha="center", va="bottom", fontsize=5, color=BLACK)
+            ha="center", va="bottom", fontsize=5.5, color=BLACK)
 
     # Per-seed fine-tuned scGPT points behind the mean bar.
     np.random.seed(7)
@@ -53,23 +53,23 @@ def fig_scgpt():
     ax.errorbar(1, seed_mean, yerr=seed_ci, fmt="none", ecolor=BLACK,
                 elinewidth=0.7, capsize=2.5, capthick=0.7, zorder=4)
     ax.text(1, seed_mean + seed_ci + 0.006, f"{seed_mean:.3f} \u00b1 {seed_ci:.3f}",
-            ha="center", va="bottom", fontsize=5, color=BLACK)
+            ha="center", va="bottom", fontsize=5.5, color=BLACK)
     ax.text(1, 0.805, f"per-seed {min(seeds):.3f}\u2013{max(seeds):.3f}",
-            ha="center", va="top", fontsize=4.5, color=BLUE_DARK)
+            ha="center", va="top", fontsize=5.5, color=BLUE_DARK)
 
     b3 = ax.bar(2, ens_cov, width=w, color=GOLD,
                 edgecolor=BLACK, linewidth=0.5, zorder=3)
     ax.text(2, ens_cov + 0.006, f"{ens_cov:.3f}",
-            ha="center", va="bottom", fontsize=5, color=BLACK)
+            ha="center", va="bottom", fontsize=5.5, color=BLACK)
 
     nominal_line(ax, label=False, ymin=0.78, ymax=1.02)
     ax.text(0.985, 0.975, "nominal 0.95", transform=ax.transAxes,
-            ha="right", va="top", fontsize=5, color=GRAY, style="italic")
+            ha="right", va="top", fontsize=5.5, color=BLACK, style="italic")
     subtle_grid(ax)
 
     ax.set_xticks(x)
     ax.set_xticklabels(["Mean-shift (\u03b4)", "scGPT fine-tune\n(5 seeds)",
-                        "scGPT ensemble"], fontsize=5.2)
+                        "scGPT ensemble"], fontsize=5.5)
     ax.set_ylabel("Coverage")
     finalize(fig, "fig_scgpt", (160, 78))
 

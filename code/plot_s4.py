@@ -38,8 +38,8 @@ def fig_s4():
     # Dual-meaning footnote — placed in upper-left, NOT behind bars
     ax.text(0.015, 0.97,
             "Precision@50 / Recall / Flagged-gene proportion; 5 seeds",
-            transform=ax.transAxes, fontsize=5, va="top", ha="left",
-            color=GRAY, style="italic",
+            transform=ax.transAxes, fontsize=5.5, va="top", ha="left",
+            color=BLACK, style="italic",
             bbox=dict(facecolor='white', edgecolor='none', alpha=0.85,
                       pad=1.5))
     finalize(fig, "fig_s4", (90, 62))

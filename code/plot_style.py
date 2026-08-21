@@ -96,14 +96,14 @@ S5_PER_PERT = [
 ]
 
 
-def apply_pub_style(font_size=7, axes_lw=0.7):
+def apply_pub_style(font_size=5.5, axes_lw=0.7):
     mpl.rcParams.update({
         "font.size": font_size,
-        "axes.labelsize": font_size,
-        "axes.titlesize": font_size + 0.5,
+        "axes.labelsize": font_size + 1.0,
+        "axes.titlesize": font_size + 1.0,
         "xtick.labelsize": font_size,
         "ytick.labelsize": font_size,
-        "legend.fontsize": font_size - 0.5,
+        "legend.fontsize": font_size,
         "axes.linewidth": axes_lw,
         "xtick.major.width": axes_lw,
         "ytick.major.width": axes_lw,
@@ -147,7 +147,7 @@ def nominal_line(ax, label=True, ymin=0.72, ymax=1.0):
         # bar value labels.
         ax.text(
             0.015, 0.965, "nominal 0.95", transform=ax.transAxes,
-            ha="left", va="top", fontsize=5, color=GRAY, style="italic",
+            ha="left", va="top", fontsize=5.5, color=BLACK, style="italic",
         )
     ax.set_ylim(ymin, ymax)
 
@@ -161,7 +161,7 @@ def subtle_grid(ax, axis="y"):
 
 
 def label_bars(ax, bars, values, spread=None, fmt="{:.3f}", dy=0.004,
-               fontsize=6, bold_best=False, best_idx=None):
+               fontsize=5.5, bold_best=False, best_idx=None):
     """Annotate bars with numeric values above error caps."""
     for i, (bar, value) in enumerate(zip(bars, values)):
         upper = bar.get_height()

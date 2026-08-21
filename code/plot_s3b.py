@@ -23,7 +23,7 @@ def fig_s3b():
 
     for fx, cy in zip(fracs, cov):
         ax.text(fx, cy + 0.007, f"{cy:.3f}", ha="center", va="bottom",
-                fontsize=6, color=BLACK)
+                fontsize=5.5, color=BLACK)
 
     nominal_line(ax, ymin=0.86, ymax=0.98)
     subtle_grid(ax)
@@ -35,8 +35,8 @@ def fig_s3b():
     ax.invert_xaxis()  # natural left-to-right: large -> small
 
     ax.text(0.02, 0.02, "Mean +/- 95% CI over five seeds",
-            transform=ax.transAxes, fontsize=5, va="bottom", ha="left",
-            color=GRAY, style="italic")
+            transform=ax.transAxes, fontsize=5.5, va="bottom", ha="left",
+            color=BLACK, style="italic")
     finalize(fig, "fig_s3b", (82, 60))
 
 

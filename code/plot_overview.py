@@ -33,7 +33,7 @@ def overview():
     subtle_grid(a)
     a.set_xticks([0])
     a.set_xticklabels(["Synthetic"], fontsize=5.5)
-    a.set_ylabel("Coverage", fontsize=6)
+    a.set_ylabel("Coverage", fontsize=6.5)
 
     # ── Panel b: Calibration ──
     xb = np.arange(3)
@@ -45,11 +45,11 @@ def overview():
     b.bar(xb + wb/2, cal_b, wb, color=BLUE, edgecolor=BLACK,
           linewidth=0.5, zorder=3)
     for i, (nv, cv) in enumerate(zip(naive_b, cal_b)):
-        b.text(xb[i] - wb/2, nv + 0.003, f"{nv:.3f}", ha="center",
-               fontsize=4.8, color=BLACK)
-        b.text(xb[i] + wb/2, cv + 0.003, f"{cv:.3f}", ha="center",
-               fontsize=4.8, color=BLACK)
-    nominal_line(b, label=False, ymin=0.86, ymax=0.97)
+        b.text(xb[i] - wb/2, nv + 0.006, f"{nv:.3f}", ha="center",
+               fontsize=5.5, color=BLACK)
+        b.text(xb[i] + wb/2, cv + 0.012, f"{cv:.3f}", ha="center",
+               fontsize=5.5, color=BLACK)
+    nominal_line(b, label=False, ymin=0.86, ymax=0.99)
     subtle_grid(b)
     b.set_xticks(xb)
     b.set_xticklabels(CELLS, fontsize=5.5)
@@ -61,7 +61,7 @@ def overview():
           linewidth=0.5, zorder=3)
     for i, v in enumerate(vals_c):
         c.text(xb[i], v + 0.004, f"{v:.3f}", ha="center",
-               fontsize=4.8, color=BLACK)
+               fontsize=5.5, color=BLACK)
     nominal_line(c, label=False, ymin=0.78, ymax=0.97)
     subtle_grid(c)
     c.set_xticks(xb)
@@ -81,7 +81,7 @@ def overview():
            markeredgecolor=WHITE, markeredgewidth=0.5)
     for fx, cy in zip(fracs_d, cov_d):
         d.text(fx, cy + 0.005, f"{cy:.3f}", ha="center",
-               fontsize=4.8, color=BLACK)
+               fontsize=5.5, color=BLACK)
     nominal_line(d, label=False, ymin=0.86, ymax=0.98)
     subtle_grid(d)
     d.set_xlabel("Calib. size (%)", fontsize=5.5)
@@ -101,7 +101,7 @@ def overview():
           error_kw=dict(elinewidth=0.6, capsize=2, capthick=0.6, ecolor=BLACK))
     for i, (v, err) in enumerate(zip(vals_e, errs_e)):
         e.text(i, v + err + 0.004, f"{v:.3f}", ha="center",
-               fontsize=4.8, color=BLACK)
+               fontsize=5.5, color=BLACK)
     e.set_ylim(0, 0.84)
     e.set_yticks([0.0, 0.2, 0.4, 0.6, 0.8])
     e.set_xticks(np.arange(4))
@@ -168,7 +168,7 @@ def overview():
 
     # Subtitle as figure-level text (positioned just above the table)
     fig.text(0.5, 0.255, "Base-predictor ablation (six sci-Plex3 conditions)",
-             ha="center", va="bottom", fontsize=5.5, color=GRAY,
+             ha="center", va="bottom", fontsize=5.5, color=BLACK,
              fontstyle="italic")
 
     # ── Shared panel labels & nominal legend ──
@@ -176,7 +176,7 @@ def overview():
         panel_label(ax_i, lbl, x=-0.10, y=1.12, fontsize=8)
 
     f.plot([], [], color=GRAY, ls="--", lw=0.8, label="Nominal 0.95")
-    f.legend(loc="upper right", fontsize=5, handletextpad=0.3,
+    f.legend(loc="upper right", fontsize=5.5, handletextpad=0.3,
              frameon=True, facecolor='white', edgecolor=GRAY_LIGHT,
              framealpha=0.85)
 

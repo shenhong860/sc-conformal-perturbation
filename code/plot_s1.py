@@ -21,7 +21,7 @@ def fig_s1():
 
     # Annotations — value above, CI label INSIDE bar (white text on colour)
     ax.text(0, hi + 0.008, f"{mean:.3f}", ha="center", va="bottom",
-            fontsize=7, fontweight="bold", color=BLACK)
+            fontsize=6.5, fontweight="bold", color=BLACK)
     ax.text(0, 0.905, f"95% CI [{lo:.3f}, {hi:.3f}]", ha="center",
             va="center", fontsize=5.5, color=WHITE, fontweight="bold")
 
@@ -31,7 +31,7 @@ def fig_s1():
     ax.set_xticks([0])
     ax.set_xticklabels(["Synthetic\n(5 seeds)"])
     ax.set_title("Method validation on synthetic data", loc="left", fontsize=6.5,
-                 color=GRAY, pad=4)
+                 color=BLACK, pad=4)
     finalize(fig, "fig_s1", (80, 60))
 
 

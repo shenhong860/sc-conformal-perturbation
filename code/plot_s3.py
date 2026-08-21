@@ -32,10 +32,10 @@ def fig_s3():
             fontsize=6, color=RED, rotation=90, va="center", ha="left",
             fontweight="bold")
 
-    # Footnote in upper-LEFT, NOT behind the bars
-    ax.text(0.02, 0.965, "Mean \u00b1 95% CI (5 seeds)",
-            transform=ax.transAxes, fontsize=5, va="top", ha="left",
-            color=GRAY, style="italic",
+    # Footnote in lower-LEFT, away from the nominal label
+    ax.text(0.02, 0.04, "Mean \u00b1 95% CI (5 seeds)",
+            transform=ax.transAxes, fontsize=5.5, va="bottom", ha="left",
+            color=BLACK, style="italic",
             bbox=dict(facecolor='white', edgecolor='none', alpha=0.8,
                       pad=1.2))
     ax.set_ylabel("Coverage")

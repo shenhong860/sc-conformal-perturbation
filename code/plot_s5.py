@@ -28,7 +28,7 @@ def fig_s5():
                                 ecolor=BLACK))
 
     ax.text(0, hi5 + 0.008, f"{mean5:.3f}", ha="center", va="bottom",
-            fontsize=7, fontweight="bold", color=BLACK)
+            fontsize=6.5, fontweight="bold", color=BLACK)
     # CI label INSIDE the bar with white text for contrast
     ax.text(0, 0.835, f"95% CI [{lo5:.3f}, {hi5:.3f}]", ha="center",
             va="center", fontsize=5.5, color=WHITE, fontweight="bold")
@@ -39,7 +39,7 @@ def fig_s5():
     ax.set_xticks([0])
     ax.set_xticklabels(["Norman genetic\n(K562, 10 perturb.)"])
     ax.set_title("Cross-modality replication", loc="left", fontsize=6.5,
-                 color=GRAY, pad=4)
+                 color=BLACK, pad=4)
     finalize(fig, "fig_s5", (82, 60))
 
 
