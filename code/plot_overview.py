@@ -126,7 +126,7 @@ def overview():
     f.set_xticklabels(["Norman"], fontsize=5.5)
 
     # ── Panel g: Ablation table ──
-    panel_label(ax_table, "g", x=-0.04, y=1.12, fontsize=8)
+    panel_label(ax_table, "G", x=-0.04, y=1.12, fontsize=8)
 
     table_rows = [
         ["Base predictor", "Coverage", "Median width", "Precision@50"],
@@ -172,7 +172,7 @@ def overview():
              fontstyle="italic")
 
     # ── Shared panel labels & nominal legend ──
-    for i, (ax_i, lbl) in enumerate(zip(axes, "abcdef")):
+    for i, (ax_i, lbl) in enumerate(zip(axes, "ABCDEF")):
         panel_label(ax_i, lbl, x=-0.10, y=1.12, fontsize=8)
 
     f.plot([], [], color=GRAY, ls="--", lw=0.8, label="Nominal 0.95")

@@ -39,8 +39,8 @@ def fig_baselines():
     fig.text(0.5, 0.01, "sci-Plex3 held-out conditions (5 seeds)",
              ha="center", va="bottom", fontsize=5, color=GRAY, style="italic")
 
-    panel_label(axes[0], "a", x=-0.08, y=1.05)
-    panel_label(axes[1], "b", x=-0.08, y=1.05)
+    panel_label(axes[0], "A", x=-0.08, y=1.05)
+    panel_label(axes[1], "B", x=-0.08, y=1.05)
     finalize(fig, "fig_baselines", (155, 68))
 
 
