@@ -32,6 +32,10 @@ v3 changes (2026-08-21 multi-seed scGPT):
   - fig_scgpt: per-condition single-model bars replaced by five fine-tuning
     seeds (per-seed coverage points, mean +/- 95% CI), delta reference, and
     the five-seed ensemble, reading numbers from multiseed.json
+
+v4 changes (2026-08-21 t-based CIs + verified S1 seeds):
+  - All seed/condition CIs now use the t distribution (df = n-1)
+  - fig_s1 swarm strip uses the actual five synthetic seeds
 """
 
 import json
@@ -44,6 +48,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 import numpy as np
+from scipy import stats
 
 # ---- Editable-text settings ------------------------------------------------
 plt.rcParams['font.family'] = 'sans-serif'
@@ -79,8 +84,8 @@ WHITE     = "#FFFFFF"
 
 CELLS = ["A549", "MCF7", "K562"]
 
-# Per-seed values for swarm plots (S1 synthetic)
-S1_SEEDS = [0.945, 0.948, 0.951, 0.943, 0.949]
+# Per-seed values for swarm plots (S1 synthetic, rerun seeds 0-4)
+S1_SEEDS = [0.9550, 0.9525, 0.9375, 0.9525, 0.9375]
 
 # Per-perturbation values for Norman swarm (S5)
 S5_PER_PERT = [
@@ -184,7 +189,7 @@ def swarm_strip(ax, x_center, values, y_range, color=BLUE, jitter_w=0.20,
 def fig_s1():
     """Synthetic validation: bar + per-seed swarm strip."""
     fig, ax = plt.subplots()
-    mean, lo, hi = 0.947, 0.938, 0.956
+    mean, lo, hi = 0.947, 0.936, 0.958
 
     # Swarm strip (per-seed values) behind bar
     swarm_strip(ax, 0, S1_SEEDS, (lo - 0.01, hi + 0.01), color=BLUE,
@@ -299,7 +304,7 @@ def fig_s3b():
     fig, ax = plt.subplots()
     fracs = [25, 10, 5]
     cov  = [0.9522, 0.9303, 0.9275]
-    sem  = [0.0032, 0.0056, 0.0050]
+    sem  = [0.0045, 0.0079, 0.0071]
 
     # Shaded confidence band
     ax.fill_between(fracs, [c - s for c, s in zip(cov, sem)],
@@ -336,7 +341,7 @@ def fig_s4():
     fig, ax = plt.subplots()
     labels = ["Top-50\nraw", "Top-50\nfiltered", "Recall", "Flagged\nfraction"]
     vals  = [0.6570, 0.6699, 0.6800, 0.0955]
-    errs  = [0.0061, 0.0091, 0.0103, 0.0026]
+    errs  = [0.0086, 0.0128, 0.0146, 0.0036]
     colors = [GRAY, TEAL, BLUE, GOLD]
     x = np.arange(4)
 
@@ -379,7 +384,8 @@ def fig_s5():
 
     mean5 = float(np.mean(S5_PER_PERT))
     se5   = float(np.std(S5_PER_PERT, ddof=1) / np.sqrt(len(S5_PER_PERT)))
-    lo5, hi5 = mean5 - 1.96 * se5, mean5 + 1.96 * se5
+    t9    = float(stats.t.ppf(0.975, len(S5_PER_PERT) - 1))
+    lo5, hi5 = mean5 - t9 * se5, mean5 + t9 * se5
 
     # Swarm: individual perturbation coverages
     swarm_strip(ax, 0, S5_PER_PERT, (min(S5_PER_PERT)-0.01,
@@ -418,9 +424,9 @@ def fig_baselines():
     colors  = [GRAY, GOLD, RED, BLUE]
 
     s2_vals = [0.8553, 0.7905, 0.9392, 0.9511]
-    s2_errs = [0.0032, 0.0058, 0.0021, 0.0030]
+    s2_errs = [0.0045, 0.0082, 0.0030, 0.0043]
     s3_vals = [0.7687, 0.6747, 0.9130, 0.8658]
-    s3_errs = [0.0033, 0.0060, 0.0021, 0.0022]
+    s3_errs = [0.0046, 0.0085, 0.0030, 0.0032]
 
     for idx, (ax, vals, errs, title, ymin) in enumerate([
         (axes[0], s2_vals, s2_errs, "In-distribution", 0.70),
@@ -466,11 +472,13 @@ def fig_scgpt():
     delta_conds = [0.9050, 0.9079, 0.9070, 0.9089, 0.9128,
                    0.9138, 0.9215, 0.9070, 0.9167, 0.9041]
     delta_mean = float(np.mean(delta_conds))
-    delta_ci = float(1.96 * np.std(delta_conds, ddof=1) / np.sqrt(len(delta_conds)))
+    delta_ci = float(stats.t.ppf(0.975, len(delta_conds) - 1)
+                     * np.std(delta_conds, ddof=1) / np.sqrt(len(delta_conds)))
 
     seeds = [mseed["per_seed"][str(s)]["coverage"] for s in mseed["seeds"]]
     seed_mean = mseed["coverage_mean"]
-    seed_ci = mseed["coverage_ci95"]
+    seed_ci = float(stats.t.ppf(0.975, len(seeds) - 1)
+                    * np.std(seeds, ddof=1) / np.sqrt(len(seeds)))
     ens_cov = mseed["ensemble"]["coverage"]
 
     x = np.arange(3)
@@ -537,9 +545,9 @@ def overview():
                 jitter_w=0.16, dot_ms=4.5, alpha=0.45)
     a.bar([0], [0.947], width=0.50, color=BLUE, edgecolor=BLACK,
           linewidth=0.5, zorder=3, alpha=0.85)
-    a.errorbar(0, 0.947, yerr=[[0.009], [0.009]], fmt="none",
+    a.errorbar(0, 0.947, yerr=[[0.011], [0.011]], fmt="none",
                ecolor=BLACK, elinewidth=0.7, capsize=2.5, capthick=0.7, zorder=4)
-    a.text(0, 0.956 + 0.005, "0.947", ha="center", va="bottom",
+    a.text(0, 0.958 + 0.005, "0.947", ha="center", va="bottom",
            fontsize=6, fontweight="bold", color=BLACK)
     nominal_line(a, label=False, ymin=0.86, ymax=0.97)
     subtle_grid(a)
@@ -583,7 +591,7 @@ def overview():
     # ── Panel d: Calibration fraction ──
     fracs_d = [25, 10, 5]
     cov_d  = [0.9522, 0.9303, 0.9275]
-    sem_d  = [0.0032, 0.0056, 0.0050]
+    sem_d  = [0.0045, 0.0079, 0.0071]
     d.fill_between(fracs_d, [c-s for c,s in zip(cov_d,sem_d)],
                    [c+s for c,s in zip(cov_d,sem_d)],
                    color=BLUE, alpha=0.10, zorder=1)
@@ -606,7 +614,7 @@ def overview():
     # ── Panel e: DEG use case ──
     labels_e = ["Raw", "Filtered", "Recall", "Flagged"]
     vals_e  = [0.6570, 0.6699, 0.6800, 0.0955]
-    errs_e  = [0.0061, 0.0091, 0.0103, 0.0026]
+    errs_e  = [0.0086, 0.0128, 0.0146, 0.0036]
     e.bar(np.arange(4), vals_e, width=0.58,
           color=[GRAY, TEAL, BLUE, GOLD], edgecolor=BLACK,
           linewidth=0.5, zorder=3, yerr=errs_e,
@@ -622,7 +630,8 @@ def overview():
     # ── Panel f: Norman ──
     mean_f = float(np.mean(S5_PER_PERT))
     se_f   = float(np.std(S5_PER_PERT, ddof=1) / np.sqrt(len(S5_PER_PERT)))
-    lo_f, hi_f = mean_f - 1.96*se_f, mean_f + 1.96*se_f
+    t_f    = float(stats.t.ppf(0.975, len(S5_PER_PERT) - 1))
+    lo_f, hi_f = mean_f - t_f*se_f, mean_f + t_f*se_f
     swarm_strip(f, 0, S5_PER_PERT, (0.88, 0.93), color=TEAL,
                 jitter_w=0.16, dot_ms=4, alpha=0.40)
     f.bar([0], [mean_f], width=0.50, color=TEAL, edgecolor=BLACK,
