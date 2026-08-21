@@ -214,7 +214,6 @@ def fig_s1():
     ax.set_xticklabels(["Synthetic\n(5 seeds)"])
     ax.set_title("Method validation on synthetic data", loc="left", fontsize=6.5,
                  color=GRAY, pad=4)
-    panel_label(ax, "a")
     finalize(fig, "fig_s1", (80, 60))
 
 
@@ -256,7 +255,6 @@ def fig_s2():
             transform=ax.transAxes, fontsize=5, va="bottom", ha="left",
             color=GRAY, style="italic")
 
-    panel_label(ax, "b")
     finalize(fig, "fig_s2", (88, 60))
 
 
@@ -295,7 +293,6 @@ def fig_s3():
             bbox=dict(facecolor='white', edgecolor='none', alpha=0.8,
                       pad=1.2))
     ax.set_ylabel("Coverage")
-    panel_label(ax, "c")
     finalize(fig, "fig_s3", (82, 60))
 
 
@@ -332,7 +329,6 @@ def fig_s3b():
     ax.text(0.02, 0.02, "Mean +/- 95% CI over five seeds",
             transform=ax.transAxes, fontsize=5, va="bottom", ha="left",
             color=GRAY, style="italic")
-    panel_label(ax, "d", x=-0.08, y=1.08)
     finalize(fig, "fig_s3b", (82, 60))
 
 
@@ -374,7 +370,6 @@ def fig_s4():
             color=GRAY, style="italic",
             bbox=dict(facecolor='white', edgecolor='none', alpha=0.85,
                       pad=1.5))
-    panel_label(ax, "e")
     finalize(fig, "fig_s4", (90, 62))
 
 
@@ -412,7 +407,6 @@ def fig_s5():
     ax.set_xticklabels(["Norman genetic\n(K562, 10 perturb.)"])
     ax.set_title("Cross-modality replication", loc="left", fontsize=6.5,
                  color=GRAY, pad=4)
-    panel_label(ax, "f")
     finalize(fig, "fig_s5", (82, 60))
 
 
