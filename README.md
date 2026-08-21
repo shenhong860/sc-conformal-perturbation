@@ -60,7 +60,7 @@ Processed data are not committed because of their size. Download:
 python code/run_uq_supplement.py        # multi-seed S3/S4 + baselines
 python code/run_uq_s5.py                # Norman replication
 python code/run_uq_ablation.py          # base-predictor ablation (delta/linear/w1ot)
-python code/make_figures.py             # regenerate all figures
+python code/make_figures.py             # regenerate all figures (plot_*.py)
 
 # scGPT base predictor (requires GPU + scGPT weights)
 python code/scgpt_build_norman_union.py
@@ -70,6 +70,11 @@ python code/make_figures.py             # regenerate all figures
 
 > The ablation script retrains the GPU-based w1ot predictor. Set
 > `SKIP_W1OT=1` to run only the delta and linear baselines.
+
+Each figure has its own script under `code/plot_*.py` (e.g.,
+`plot_s1.py`, `plot_scgpt.py`, `plot_overview.py`); run a single figure with
+`python code/plot_<figure>.py`, or run all figures through
+`make_figures.py`.
 
 Individual experiment scripts (`run_uq_s1.py`, `run_uq_s2.py`, `run_uq_s3.py`,
 etc.) reproduce the corresponding results sections.
